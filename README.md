@@ -2,11 +2,14 @@
 
 `json-fusion` is a Node.js library designed to streamline the process of loading, merging, and reflecting directory hierarchies in JSON files. With `json-fusion`, you can consolidate information scattered across different JSON files, and reflect your filesystem's structure directly in your data, all with just a few lines of code.
 
+Moreover, `json-fusion` provides a special handling for `index.json` files. The contents of `index.json` files are expanded directly into the parent directory's key, rather than creating a separate index key. This allows more intuitive organization of your JSON files.
+
 ## Features
 
 - Load all JSON files from a specified directory
 - Merge multiple JSON objects into one
 - Incorporate the directory hierarchy as keys in the resulting JSON object
+- Special handling for `index.json` files, which are expanded directly under the parent directory's key
 
 ## Installation
 
@@ -48,6 +51,7 @@ Consider the following directory structure:
 /path/to/your/json/files
 ├── config.json
 ├── users
+│   ├── index.json
 │   ├── john.json
 │   └── jane.json
 └── data
@@ -59,14 +63,15 @@ Running `jsonFusion('./path/to/your/json/files')` would result in an object simi
 
 ```jsonc
 {
-  "config": {/**  */},
+  "config": {/** ./config.json */},
   "users": {
-    "john": {/**  */},
-    "jane": {/**  */}
+    /** index.json */
+    "john": {/** ./users/john.json */},
+    "jane": {/** ./users/jane.json */}
   },
   "data": {
-    "items": {/** */},
-    "purchases": {/** */}
+    "items": {/** ./data/items.json */},
+    "purchases": {/** ./data.purchases.json */}
   }
 }
 ```

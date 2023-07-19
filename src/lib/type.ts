@@ -8,11 +8,6 @@ export interface Config {
   exportType?: 'raw' | 'object'
 
   /**
-   * @default '**\/*.json''
-   */
-  pattern?: Pattern | Pattern[]
-
-  /**
    * @default: undefined
    */
   ignore?: Pattern[]

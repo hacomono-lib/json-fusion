@@ -32,6 +32,7 @@
     "dedup": "yarn-deduplicate --strategy fewer"
   },
   "dependencies": {
+    "deepmerge": "^4.3.1",
     "globby": "^11.1.0"
   },
   "devDependencies": {

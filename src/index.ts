@@ -1,42 +1,35 @@
-import { loadJson } from './lib/loader'
+import { checkBaseDir } from './lib/assert'
+import { finalize } from './lib/finalize'
+import { loadContext } from './lib/loader'
 import { mergeJson } from './lib/merge'
-import { Config, Pattern } from './lib/type'
+import { Config } from './lib/type'
 
-async function main(config: Config): Promise<unknown> {
-  const context = await loadJson(config)
+async function main(baseDir: string, config: Config): Promise<unknown> {
+  checkBaseDir(baseDir)
+
+  const context = await loadContext(baseDir, config)
+
   const result = mergeJson(context)
 
-  if (config.exportType === 'object') {
-    return result
-  }
-
-  return JSON.stringify(result, null, 2)
+  return finalize(result, config)
 }
 
 /**
  *
- * @param input
+ * @param baseDir
+ * @param config
  */
-function jsonFusion(patterns: Pattern | Pattern[]): Promise<string>
+function jsonFusion(baseDir: string, config?: Config & { exportType?: 'raw' }): Promise<string>
 
 /**
  *
- * @param inputConfig
+ * @param baseDir
+ * @param config
  */
-function jsonFusion(inputConfig: Config & { exportType?: 'raw' }): Promise<string>
+function jsonFusion<T = unknown>(baseDir: string, config: Config & { exportType: 'object' }): Promise<T>
 
-/**
- *
- * @param inputConfig
- */
-function jsonFusion<T = unknown>(inputConfig: Config & { exportType: 'object' }): Promise<T>
-
-function jsonFusion(input: Pattern | Pattern[] | Config): Promise<unknown> {
-  if (typeof input === 'string' || Array.isArray(input)) {
-    return jsonFusion({ pattern: input }) as Promise<unknown>
-  }
-
-  return main(input)
+function jsonFusion(baseDir: string, config: Config = {}): Promise<unknown> {
+  return main(baseDir, config)
 }
 
 export default jsonFusion
