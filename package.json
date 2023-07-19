@@ -1,0 +1,56 @@
+{
+  "name": "json-fusion",
+  "version": "0.0.1",
+  "description": "type-assurer: TypeScript library that provides shorthand type assertions and type guard functions for multiple types.",
+  "repository": {
+    "url": "git@github.com:hacomono-lib/type-assurer.git",
+    "type": "git"
+  },
+  "author": "mew-ton <mxl_usmarc@slmail.mewton.jp>",
+  "license": "MIT",
+  "volta": {
+    "node": "18.17.0",
+    "yarn": "3.6.1"
+  },
+  "packageManager": "yarn@3.6.1",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "dev": "vitest",
+    "build": "tsup",
+    "test": "run-p test:*",
+    "test:spec": "vitest --run",
+    "test:spec-d": "vitest typecheck --run",
+    "test:type": "tsc --noEmit -p tsconfig.json",
+    "lint": "eslint --ext .ts .",
+    "format": "prettier --write . --ignore-path=.eslintignore",
+    "dedup": "yarn-deduplicate --strategy fewer"
+  },
+  "devDependencies": {
+    "@changesets/changelog-github": "^0.4.8",
+    "@changesets/cli": "^2.26.2",
+    "@typescript-eslint/eslint-plugin": "^6.1.0",
+    "@typescript-eslint/parser": "^6.1.0",
+    "eslint": "^8.45.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "prettier": "^3.0.0",
+    "tsup": "^7.1.0",
+    "typescript": "^5.1.6",
+    "vitest": "^0.33.0",
+    "yarn-run-all": "latest"
+  },
+  "peerDependencies": {
+    "typescript": ">= 4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "typescript": {
+      "optional": true
+    }
+  }
+}
