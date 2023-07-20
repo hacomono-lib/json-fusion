@@ -1,6 +1,6 @@
 {
   "$schema": "https://unpkg.com/@changesets/config@2.3.0/schema.json",
-  "changelog": ["@changesets/changelog-github", { "repo": "hacomono-lib/type-assurer" }],
+  "changelog": ["@changesets/changelog-github", { "repo": "hacomono-lib/json-fusion" }],
   "commit": false,
   "access": "restricted",
   "baseBranch": "main",
