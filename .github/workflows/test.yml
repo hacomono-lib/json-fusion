@@ -27,20 +27,15 @@ jobs:
   build:
     name: "Build"
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [14.x, 16.x, 18.x]
     needs:
       - init__node
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/init-node
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 18.x
 
       - uses: ./.github/actions/build-and-cache
-        with:
-          node-version: ${{ matrix.node-version }}
 
   test:
     name: "Test: spec"
@@ -61,7 +56,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - run: yarn test:spec
-  
+
   typecheck:
     name: "Test: typecheck"
     runs-on: ubuntu-latest
