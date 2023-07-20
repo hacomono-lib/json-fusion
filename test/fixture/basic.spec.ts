@@ -24,7 +24,7 @@ describe('directory pattern', () => {
 })
 
 describe('options test', () => {
-  test.only('ignore', async () => {
+  test('ignore', async () => {
     const resultRaw = await jsonFusion('basic', { cwd: __dirname, ignore: ['**/config.json'] })
     const result = JSON.parse(resultRaw)
     expect(result).toEqual({ ...mergedJson, config: undefined })
