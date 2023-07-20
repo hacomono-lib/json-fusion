@@ -1,6 +1,6 @@
 import { resolve } from 'path'
 import { describe, expect, test } from 'vitest'
-import jsonFusion from '../../src'
+import { jsonFusion } from '../../src'
 import { mergedJson } from './basic/mergedResult.js'
 
 describe('directory pattern', () => {

@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'vitest'
-import jsonFusion, { JsonFusionError } from '../../src'
+import { jsonFusion, JsonFusionError } from '../../src'
 
 describe('error outputs', () => {
   test('invalid json inputs', async () => {

@@ -30,17 +30,15 @@ async function main(baseDir: string, config: Config): Promise<unknown> {
  * @param baseDir
  * @param config
  */
-function jsonFusion(baseDir: string, config?: Config & { exportType?: 'raw' }): Promise<string>
+export function jsonFusion(baseDir: string, config?: Config & { exportType?: 'raw' }): Promise<string>
 
 /**
  *
  * @param baseDir
  * @param config
  */
-function jsonFusion<T = unknown>(baseDir: string, config: Config & { exportType: 'object' }): Promise<T>
+export function jsonFusion<T = unknown>(baseDir: string, config: Config & { exportType: 'object' }): Promise<T>
 
-function jsonFusion(baseDir: string, config: Config = {}): Promise<unknown> {
+export function jsonFusion(baseDir: string, config: Config = {}): Promise<unknown> {
   return main(baseDir, config)
 }
-
-export default jsonFusion

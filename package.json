@@ -23,7 +23,7 @@
     "dev": "vitest",
     "build": "tsup",
     "test": "run-p test:*",
-    "test:spec": "vitest --run",
+    "test:spec": "vitest --run --silent",
     "test:type": "tsc --noEmit -p tsconfig.json",
     "lint": "eslint --ext .ts .",
     "format": "prettier --write . --ignore-path=.eslintignore",
