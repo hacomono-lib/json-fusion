@@ -24,6 +24,8 @@ jobs:
 
     - name: Install dependencies
       uses: ./.github/actions/init-node
+      with:
+        node-version: 18.x
 
     - name: Build
       uses: ./.github/actions/build-and-cache

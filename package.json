@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Json-Fusion is a Node.js library designed to streamline the process of loading, merging, and reflecting directory hierarchies in JSON files. With Json-Fusion, you can consolidate information scattered across different JSON files, and reflect your filesystem's structure directly in your data, all with just a few lines of code.",
   "repository": {
-    "url": "git@github.com:hacomono-lib/type-assurer.git",
+    "url": "git@github.com:hacomono-lib/json-fusion.git",
     "type": "git"
   },
   "author": "mew-ton <mxl_usmarc@slmail.mewton.jp>",
