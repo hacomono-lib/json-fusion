@@ -15,48 +15,63 @@ jobs:
   init__node:
     name: "Initialize: node"
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x, 18.x]
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/init-node
+        with:
+          node-version: ${{ matrix.node-version }}
 
   build:
     name: "Build"
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x, 18.x]
     needs:
       - init__node
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/init-node
+        with:
+          node-version: ${{ matrix.node-version }}
+
       - uses: ./.github/actions/build-and-cache
+        with:
+          node-version: ${{ matrix.node-version }}
 
-  test__code_spec:
-    name: "Test: Code Specifigation"
+  test:
+    name: "Test: spec"
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x, 18.x]
     needs:
-      - init__node
+      - build
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/init-node
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - uses: ./.github/actions/build-and-cache
+        with:
+          node-version: ${{ matrix.node-version }}
+
       - run: yarn test:spec
-
-
-  test__definition_types_spec:
-    name: "Test: Definition Types Specifigation"
+  
+  typecheck:
+    name: "Test: typecheck"
     runs-on: ubuntu-latest
     needs:
       - init__node
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/init-node
-      - run: yarn test:spec-d
+        with:
+          node-version: 18.x
 
+      - run: yarn test:typecheck
 
-  test__typecheck:
-    name: "Test: TypeCheck"
-    runs-on: ubuntu-latest
-    needs:
-      - init__node
-    steps:
-      - uses: actions/checkout@v3
-      - uses: ./.github/actions/init-node
-      - run: yarn test:type
