@@ -1,16 +1,15 @@
 {
   "name": "json-fusion",
   "version": "0.0.1",
-  "description": "type-assurer: TypeScript library that provides shorthand type assertions and type guard functions for multiple types.",
+  "description": "Json-Fusion is a Node.js library designed to streamline the process of loading, merging, and reflecting directory hierarchies in JSON files. With Json-Fusion, you can consolidate information scattered across different JSON files, and reflect your filesystem's structure directly in your data, all with just a few lines of code.",
   "repository": {
     "url": "git@github.com:hacomono-lib/type-assurer.git",
     "type": "git"
   },
   "author": "mew-ton <mxl_usmarc@slmail.mewton.jp>",
   "license": "MIT",
-  "volta": {
-    "node": "18.17.0",
-    "yarn": "3.6.1"
+  "engines": {
+    "node": ">=14"
   },
   "packageManager": "yarn@3.6.1",
   "type": "module",
@@ -24,12 +23,15 @@
     "dev": "vitest",
     "build": "tsup",
     "test": "run-p test:*",
-    "test:spec": "vitest --run",
-    "test:spec-d": "vitest typecheck --run",
+    "test:spec": "vitest --run --silent",
     "test:type": "tsc --noEmit -p tsconfig.json",
     "lint": "eslint --ext .ts .",
     "format": "prettier --write . --ignore-path=.eslintignore",
     "dedup": "yarn-deduplicate --strategy fewer"
+  },
+  "dependencies": {
+    "deepmerge": "^4.3.1",
+    "globby": "^11.1.0"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.4.8",

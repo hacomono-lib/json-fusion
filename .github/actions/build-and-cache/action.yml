@@ -13,6 +13,10 @@ runs:
         path: |
           ./dist
         key: cache-build-results-${{ runner.os }}-${{ github.sha }}
+        restore-keys: |
+          cache-build-results-${{ runner.os }}-${{ github.sha }}
+          cache-build-results-${{ runner.os }}-
+          cache-build-results--
 
     - if: steps.cache_build_results.outputs.cache-hit != 'true'
       run: yarn build
