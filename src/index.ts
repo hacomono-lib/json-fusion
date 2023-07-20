@@ -2,16 +2,27 @@ import { checkBaseDir } from './lib/assert'
 import { finalize } from './lib/finalize'
 import { loadContext } from './lib/loader'
 import { mergeJson } from './lib/merge'
-import { Config } from './lib/type'
+import type { Config } from './lib/type'
+import { key } from './lib/common'
+import { JsonFusionError } from './lib/error'
+
+export { JsonFusionError, Config }
 
 async function main(baseDir: string, config: Config): Promise<unknown> {
   checkBaseDir(baseDir)
 
+  console.debug(key, 'baseDir:', baseDir)
+  console.debug(key, 'config:', config)
+
   const context = await loadContext(baseDir, config)
+
+  console.debug(key, 'load jsons:', context.jsons)
 
   const result = mergeJson(context)
 
-  return finalize(result, config)
+  console.debug(key, 'result:', result)
+
+  return await finalize(result, config)
 }
 
 /**

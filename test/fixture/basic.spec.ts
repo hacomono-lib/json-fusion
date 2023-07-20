@@ -11,7 +11,7 @@ describe('directory pattern', () => {
   })
 
   test('complex baseDir', async () => {
-    const resultRaw = await jsonFusion('./test/fixture/basic', { cwd: resolve(__dirname, '../..') })
+    const resultRaw = await jsonFusion('./fixture/basic', { cwd: resolve(__dirname, '..') })
     const result = JSON.parse(resultRaw)
     expect(result).toEqual(mergedJson)
   })
@@ -19,6 +19,24 @@ describe('directory pattern', () => {
   test('without cwd', async () => {
     const resultRaw = await jsonFusion('./test/fixture/basic')
     const result = JSON.parse(resultRaw)
-    expect(result).toEqual({ test: { fixture: { basic: mergedJson } } })
+    expect(result).toEqual(mergedJson)
+  })
+})
+
+describe('options test', () => {
+  test.only('ignore', async () => {
+    const resultRaw = await jsonFusion('basic', { cwd: __dirname, ignore: ['**/config.json'] })
+    const result = JSON.parse(resultRaw)
+    expect(result).toEqual({ ...mergedJson, config: undefined })
+  })
+
+  test('exportType: raw', async () => {
+    const resultRaw = await jsonFusion('basic', { cwd: __dirname, exportType: 'raw' })
+    expect(typeof resultRaw).toBe('string')
+  })
+
+  test('exportType: object', async () => {
+    const result = await jsonFusion('basic', { cwd: __dirname, exportType: 'object' })
+    expect(result).toEqual(mergedJson)
   })
 })

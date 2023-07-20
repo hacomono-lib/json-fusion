@@ -8,9 +8,8 @@
   },
   "author": "mew-ton <mxl_usmarc@slmail.mewton.jp>",
   "license": "MIT",
-  "volta": {
-    "node": "18.17.0",
-    "yarn": "3.6.1"
+  "engines": {
+    "node": ">=14"
   },
   "packageManager": "yarn@3.6.1",
   "type": "module",
@@ -25,7 +24,6 @@
     "build": "tsup",
     "test": "run-p test:*",
     "test:spec": "vitest --run",
-    "test:spec-d": "vitest typecheck --run",
     "test:type": "tsc --noEmit -p tsconfig.json",
     "lint": "eslint --ext .ts .",
     "format": "prettier --write . --ignore-path=.eslintignore",

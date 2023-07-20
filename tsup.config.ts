@@ -8,5 +8,8 @@ export default defineConfig({
   dts: true,
   treeshake: true,
   sourcemap: true,
-  clean: true
+  clean: true,
+  esbuildOptions(options, _context) {
+    options.drop = [...(options.drop ?? []), 'console']
+  }
 })
