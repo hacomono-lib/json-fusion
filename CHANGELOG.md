@@ -1,5 +1,11 @@
 # json-fusion
 
+## 0.1.1
+
+### Patch Changes
+
+- [#14](https://github.com/hacomono-lib/json-fusion/pull/14) [`202c978`](https://github.com/hacomono-lib/json-fusion/commit/202c978baa30717db679cd637121670fa8e5598e) Thanks [@mew-ton](https://github.com/mew-ton)! - chore: support for es2015
+
 ## 0.1.0
 
 ### Minor Changes
