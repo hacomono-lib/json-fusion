@@ -7,9 +7,6 @@ permissions:
   packages: write
   pull-requests: write
 
-env:
-  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
 on:
   push:
     branches:
@@ -39,3 +36,4 @@ jobs:
         publish: yarn run changeset publish
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
