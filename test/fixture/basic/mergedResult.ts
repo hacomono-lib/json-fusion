@@ -49,6 +49,7 @@ export const mergedJson = {
     }
   }
 }
+Object.freeze(mergedJson)
 
 export const mergedYaml = {
   users: {
@@ -64,8 +65,23 @@ export const mergedYaml = {
     }
   }
 }
+Object.freeze(mergedYaml)
 
-export const full = deepMerge(
-  mergedJson,
-  mergedYaml
-)
+export const full = deepMerge(mergedJson, mergedYaml)
+
+Object.freeze(full)
+
+export const noSpreadJson = {
+  config: mergedJson.config,
+  data: mergedJson.data,
+  users: {
+    index: {
+      country: mergedJson.users.country,
+      language: mergedJson.users.language
+    },
+    jane: mergedJson.users.jane,
+    john: mergedJson.users.john
+  }
+}
+
+Object.freeze(noSpreadJson)

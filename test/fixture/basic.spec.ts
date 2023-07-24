@@ -2,7 +2,7 @@ import { resolve } from 'path'
 import { stringify } from 'yaml'
 import { describe, expect, test } from 'vitest'
 import { jsonFusion } from '../../src'
-import { mergedJson, mergedYaml, full } from './basic/mergedResult.js'
+import { mergedJson, mergedYaml, full, noSpreadJson } from './basic/mergedResult.js'
 
 describe('directory pattern', () => {
   test('simple usage', async () => {
@@ -58,5 +58,10 @@ describe('options test', () => {
       const result = await jsonFusion('basic', { cwd: __dirname, extensions: ['json', 'yaml'], exportType: 'object' })
       expect(result).toEqual(full)
     })
+  })
+
+  test('noSpreadIndex', async () => {
+    const result = await jsonFusion('basic', { cwd: __dirname, noSpreadIndex: true, exportType: 'object' })
+    expect(result).toEqual(noSpreadJson)
   })
 })

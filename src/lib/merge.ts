@@ -2,15 +2,15 @@ import { all as merge } from 'deepmerge'
 import { JsonFusionContext } from "./loader";
 
 export function mergeJson(context: JsonFusionContext): unknown {
-  const jsons = context.jsons.map(({ path, json }) => fixHierarchy(path, json))
+  const jsons = context.jsons.map(({ path, json }) => fixHierarchy(path, json, context.config))
 
   return merge(jsons)
 }
 
-function fixHierarchy(path: string, json: unknown): object {
+function fixHierarchy(path: string, json: unknown, config: Config): object {
   const keys = path.split('/').filter((key) => key !== '')
 
-  if (keys[keys.length - 1] === 'index') {
+  if (!config.noSpreadIndex && keys[keys.length - 1] === 'index') {
     keys.pop()
   }
 

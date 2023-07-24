@@ -8,6 +8,7 @@ const { readFile } = promises
 
 export interface JsonFusionContext {
   files: string[]
+  config: Config
   jsons: JsonContext[]
 }
 
@@ -26,6 +27,7 @@ export async function loadContext(baseDir: string, config: Config): Promise<Json
 
   return {
     files,
+    config,
     jsons: await loadJsons(files, baseDir, config)
   }
 }
