@@ -30,7 +30,7 @@ async function main(baseDir: string, config: Config): Promise<unknown> {
  * @param baseDir
  * @param config
  */
-export function jsonFusion(baseDir: string, config?: Config & { exportType?: 'raw' }): Promise<string>
+export function jsonFusion(baseDir: string, config?: Config & { exportType?: 'json' | 'yaml' }): Promise<string>
 
 /**
  *

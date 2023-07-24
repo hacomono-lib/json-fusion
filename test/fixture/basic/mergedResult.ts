@@ -1,3 +1,5 @@
+import deepMerge from 'deepmerge'
+
 export const mergedJson = {
   config: {
     environment: 'production',
@@ -47,3 +49,23 @@ export const mergedJson = {
     }
   }
 }
+
+export const mergedYaml = {
+  users: {
+    alice: {
+      firstName: 'Alice',
+      lastName: 'White',
+      email: 'alice.white@example.com'
+    },
+    jack: {
+      firstName: 'Jack',
+      lastName: 'Black',
+      email: 'black.jack@example.com'
+    }
+  }
+}
+
+export const full = deepMerge(
+  mergedJson,
+  mergedYaml
+)
