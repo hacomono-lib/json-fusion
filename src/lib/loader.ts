@@ -1,6 +1,6 @@
 import { resolve } from 'path'
 import { promises } from 'fs'
-import { Config } from './type'
+import { Config, Extension } from './type'
 import globby from 'globby'
 import { ErrorReason, JsonFusionError } from './error'
 
@@ -33,11 +33,26 @@ export async function loadContext(baseDir: string, config: Config): Promise<Json
 function globFiles(baseDir: string, config: Config): Promise<string[]> {
   return globby(baseDir, {
     expandDirectories: {
-      extensions: ['json']
+      extensions: (config.extensions ?? ['json']).flatMap((ext) => extensionAliases[ext])
     },
     gitignore: false,
     cwd: config.cwd
   })
+}
+
+const extensionAliases = {
+  yaml: ['yml', 'yaml'],
+  json: ['json']
+} satisfies Record<Extension, string[]>
+
+const extensions = Object.values(extensionAliases).flat()
+
+function getExtension(filePath: string): string {
+  const ext = filePath.split('.').pop() ?? ''
+  const found = Object.entries(extensionAliases).find(([, aliases]) =>
+    (aliases as readonly string[]).includes(ext)
+  )
+  return found?.[0] ?? ext
 }
 
 async function ignoreFiles(baseDir: string, config: Config): Promise<string[]> {
@@ -52,7 +67,10 @@ async function ignoreFiles(baseDir: string, config: Config): Promise<string[]> {
 }
 
 async function loadJsons(files: string[], baseDir: string, config: Config): Promise<JsonContext[]> {
-  const result = await Promise.all(files.map((path) => loadJson(path, baseDir, config)))
+  const loader = new JsonLoader(baseDir, config)
+  await loader.init()
+
+  const result = await Promise.all(files.map((path) => loader.load(path)))
 
   const errors = result.filter((item): item is LoadJsonResult & { error: string } => !!item.error)
   if (errors.length > 0) {
@@ -71,43 +89,79 @@ interface LoadJsonResult {
   error?: string
 }
 
-async function loadJson(
-  filePath: string,
-  baseDir: string,
-  config: Config
-): Promise<LoadJsonResult> {
-  const importPath = resolve(config.cwd ?? cwd, filePath)
+type Parser = (raw: string) => unknown
 
-  const path = filePath
-    .replace(/^\.\//, '')
-    .replace(new RegExp(`^${baseDir.replace(/^\.\//, '')}/`), '')
-    .replace(/\.json$/, '')
+class JsonLoader {
+  constructor(
+    private readonly baseDir: string,
+    private readonly config: Config
+  ) {}
 
-  const load = async () => {
-    const jsonRaw = await readFile(importPath, 'utf-8')
-    return JSON.parse(jsonRaw)
+  #parsers: Partial<Record<Extension, Parser>> = {
+    json: (raw) => JSON.parse(raw)
   }
 
-  try {
-    return {
-      filePath,
-      path,
-      json: await load()
-    }
-  } catch (e) {
-    return {
-      filePath,
-      path,
-      error: errorToString(e)
+  async init() {
+    if (this.config.extensions?.includes('yaml')) {
+      this.#parsers.yaml = await this.#createYamlParser()
     }
   }
-}
 
-function errorToString(e: unknown): string {
-  if (e instanceof Error) {
-    return `${e.name}: ${e.message}`
+  async #createYamlParser(): Promise<Parser> {
+    const { parse } = await import('yaml')
+    return (raw) => parse(raw, { prettyErrors: true })
   }
-  return String(e)
+
+  #assertSupportedExtension(ext: string): asserts ext is Extension {
+    if (!(this.config.extensions ?? ['json']).includes(ext as Extension)) {
+      throw new Error(`Unsupported file extension: ${ext}`)
+    }
+  }
+
+  #getPath(filePath: string): string {
+    return filePath
+      .replace(/^\.\//, '')
+      .replace(new RegExp(`^${this.baseDir.replace(/^\.\//, '')}/`), '')
+      .replace(new RegExp(`\\.(${extensions.join('|')})$`), '')
+  }
+
+  #parse(raw: string, ext: Extension): unknown {
+    const parser = this.#parsers[ext]
+    if (!parser) {
+      throw new Error(`Unsupported file extension: ${ext}`)
+    }
+    return parser(raw)
+  }
+
+  #errorToString(e: unknown): string {
+    if (e instanceof Error) {
+      return `${e.name}: ${e.message}`
+    }
+    return String(e)
+  }
+
+  async load(filePath: string): Promise<LoadJsonResult> {
+    const importPath = resolve(this.config.cwd ?? cwd, filePath)
+    const ext = getExtension(filePath)
+    this.#assertSupportedExtension(ext)
+    const path = this.#getPath(filePath)
+
+    const raw = await readFile(importPath, 'utf-8')
+
+    try {
+      return {
+        filePath,
+        path,
+        json: this.#parse(raw, ext)
+      }
+    } catch (e) {
+      return {
+        filePath,
+        path,
+        error: this.#errorToString(e)
+      }
+    }
+  }
 }
 
 function toErrorReason(result: LoadJsonResult & { error: string }): ErrorReason {

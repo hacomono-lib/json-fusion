@@ -45,13 +45,18 @@
     "tsup": "^7.1.0",
     "typescript": "^5.1.6",
     "vitest": "^0.33.0",
+    "yaml": "^2.3.1",
     "yarn-run-all": "latest"
   },
   "peerDependencies": {
-    "typescript": ">= 4.0.0"
+    "typescript": ">= 4.0.0",
+    "yaml": ">= 2.0.0"
   },
   "peerDependenciesMeta": {
     "typescript": {
+      "optional": true
+    },
+    "yaml": {
       "optional": true
     }
   }

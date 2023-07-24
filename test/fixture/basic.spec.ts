@@ -1,7 +1,8 @@
 import { resolve } from 'path'
+import { stringify } from 'yaml'
 import { describe, expect, test } from 'vitest'
 import { jsonFusion } from '../../src'
-import { mergedJson } from './basic/mergedResult.js'
+import { mergedJson, mergedYaml, full } from './basic/mergedResult.js'
 
 describe('directory pattern', () => {
   test('simple usage', async () => {
@@ -30,13 +31,32 @@ describe('options test', () => {
     expect(result).toEqual({ ...mergedJson, config: undefined })
   })
 
-  test('exportType: raw', async () => {
-    const resultRaw = await jsonFusion('basic', { cwd: __dirname, exportType: 'raw' })
-    expect(typeof resultRaw).toBe('string')
+  describe('exportType', () => {
+    test('json', async () => {
+      const resultRaw = await jsonFusion('basic', { cwd: __dirname, exportType: 'json' })
+      expect(resultRaw).toEqual(JSON.stringify(mergedJson, null, 2))
+    })
+
+    test('yaml', async () => {
+      const resultRaw = await jsonFusion('basic', { cwd: __dirname, exportType: 'yaml' })
+      expect(resultRaw).toEqual(stringify(mergedJson, { indent: 2 }))
+    })
+
+    test('object', async () => {
+      const result = await jsonFusion('basic', { cwd: __dirname, exportType: 'object' })
+      expect(result).toEqual(mergedJson)
+    })
   })
 
-  test('exportType: object', async () => {
-    const result = await jsonFusion('basic', { cwd: __dirname, exportType: 'object' })
-    expect(result).toEqual(mergedJson)
+  describe('extension', () => {
+    test('yaml', async () => {
+      const result = await jsonFusion('basic', { cwd: __dirname, extensions: ['yaml'], exportType: 'object' })
+      expect(result).toEqual(mergedYaml)
+    })
+
+    test('json, yaml', async () => {
+      const result = await jsonFusion('basic', { cwd: __dirname, extensions: ['json', 'yaml'], exportType: 'object' })
+      expect(result).toEqual(full)
+    })
   })
 })

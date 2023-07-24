@@ -1,28 +1,16 @@
-import { Config } from "./type"
+import { Config, ExportType } from "./type"
 import { promises } from 'fs'
 import { resolve } from 'path'
 
-export async function finalize(result: unknown, config: Config): Promise<string> {
+export async function finalize(result: unknown, config: Config): Promise<unknown> {
+  const finalized = await stringifyMap[config.exportType ?? 'json'](result)
 
-  let stringifiedResult: string
-  const stringify = () => {
-    if (stringifiedResult) {
-      return stringifiedResult
-    }
-    return stringifiedResult = JSON.stringify(result, null, 2)
+  if (config.exportType !== 'object' && config.export) {
+    await outputFile(finalized as string, config)
   }
 
-  if (config.exportType === 'raw' || !config.exportType) {
-    return stringify()
-  }
-
-  if (config.export) {
-    await outputFile(stringify(), config)
-  }
-
-  return result as string
+  return finalized
 }
-
 
 async function outputFile(result: string, config: Config): Promise<void> {
   const exportPath = resolve(config.cwd ?? process.cwd(), config.export!)
@@ -31,3 +19,14 @@ async function outputFile(result: string, config: Config): Promise<void> {
 
   await promises.writeFile(exportPath, JSON.stringify(result, null, 2))
 }
+
+type Finalize = (result: unknown) => string | unknown | Promise<string>
+
+const stringifyMap = {
+  json: (result: unknown) => JSON.stringify(result, null, 2),
+  yaml: async (result: unknown) => {
+    const { stringify } = await import('yaml')
+    return stringify(result, { indent: 2 })
+  },
+  object: (result: unknown) => result
+} as const satisfies Record<ExportType, Finalize>
