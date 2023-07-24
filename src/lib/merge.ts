@@ -2,7 +2,9 @@ import { all as merge } from 'deepmerge'
 import { JsonFusionContext } from "./loader";
 
 export function mergeJson(context: JsonFusionContext): unknown {
-  const jsons = context.jsons.map(({ path, json }) => fixHierarchy(path, json, context.config))
+  const jsons = context.jsons
+    .sort((a, b) => a.path.localeCompare(b.path))
+    .map(({ path, json }) => fixHierarchy(path, json, context.config))
 
   return merge(jsons)
 }
