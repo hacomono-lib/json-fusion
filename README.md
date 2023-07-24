@@ -78,6 +78,24 @@ Running `jsonFusion('./path/to/your/json/files')` would result in an object simi
 
 where `{/** */}` represents the contents of the corresponding JSON file.
 
+## API
+
+### `jsonFusion(path, options)`
+
+- `path` - The path to the directory containing your JSON files.
+- `options` - An optional object containing the following options:
+  - `exportType` - The type of export to use. Defaults to `json`. Can be one of the following:
+    - `json` - Exports the resulting object as a JSON string.
+    - `yaml` - Exports the resulting object as a YAML string. required `yaml` package
+    - `object` - Exports the resulting object as a JavaScript object.
+  - `ignore` - An array of file names to ignore. Defaults to `['index.json']`.
+  - `cwd` - The current working directory to use. Defaults to `process.cwd()`.
+  - `export` - If you want to export the result to a file, you can set the path to the file to be exported.
+  - `extensions` - An array of file extensions to include. Defaults to `['json']`.
+    - `json` - JSON files
+    - `yaml` - YAML files. required `yaml` package
+  - `noSpreadIndex` - If you want to disable the special handling for `index.json` files, set this to `true`. Defaults to `false`.
+
 ## Contributing
 
 see [CONTRIBUTING.md](./CONTRIBUTING.md)

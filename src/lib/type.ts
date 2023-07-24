@@ -37,4 +37,10 @@ export interface Config {
    * @default ['json']
    */
   extensions?: Extension[]
+
+  /**
+   * if true, index.json will not be spread
+   * @default false
+   */
+  noSpreadIndex?: boolean
 }

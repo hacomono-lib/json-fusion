@@ -1,13 +1,14 @@
 import { resolve } from 'path'
 import { promises } from 'fs'
-import { Config, Extension } from './type'
+import type { Config, Extension } from './type'
 import globby from 'globby'
-import { ErrorReason, JsonFusionError } from './error'
+import { type ErrorReason, JsonFusionError } from './error'
 
 const { readFile } = promises
 
 export interface JsonFusionContext {
   files: string[]
+  config: Config
   jsons: JsonContext[]
 }
 
@@ -26,6 +27,7 @@ export async function loadContext(baseDir: string, config: Config): Promise<Json
 
   return {
     files,
+    config,
     jsons: await loadJsons(files, baseDir, config)
   }
 }
