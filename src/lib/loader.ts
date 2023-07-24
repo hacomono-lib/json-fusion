@@ -1,8 +1,8 @@
 import { resolve } from 'path'
 import { promises } from 'fs'
-import { Config, Extension } from './type'
+import type { Config, Extension } from './type'
 import globby from 'globby'
-import { ErrorReason, JsonFusionError } from './error'
+import { type ErrorReason, JsonFusionError } from './error'
 
 const { readFile } = promises
 

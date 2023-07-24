@@ -1,4 +1,4 @@
-import { Config, ExportType } from "./type"
+import type { Config, ExportType } from "./type"
 import { promises } from 'fs'
 import { resolve } from 'path'
 

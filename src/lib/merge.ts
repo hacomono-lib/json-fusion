@@ -1,5 +1,6 @@
 import { all as merge } from 'deepmerge'
-import { JsonFusionContext } from "./loader";
+import type { JsonFusionContext } from './loader'
+import type { Config } from '..'
 
 export function mergeJson(context: JsonFusionContext): unknown {
   const jsons = context.jsons
@@ -25,7 +26,7 @@ function fixHierarchy(path: string, json: unknown, config: Config): object {
 
   return keys.reduceRight((acc, key) => {
     return {
-      [key]: acc,
+      [key]: acc
     }
   }, json) as object
 }
