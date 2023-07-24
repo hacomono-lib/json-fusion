@@ -1,5 +1,11 @@
 # json-fusion
 
+## 0.2.1
+
+### Patch Changes
+
+- [#22](https://github.com/hacomono-lib/json-fusion/pull/22) [`bef15fb`](https://github.com/hacomono-lib/json-fusion/commit/bef15fb1e5c2f3807c3148568111f29fead5ff83) Thanks [@mew-ton](https://github.com/mew-ton)! - chore: #21 リリース情報が repository にない / npm パッケージの情報が不足してる など
+
 ## 0.2.0
 
 ### Minor Changes
