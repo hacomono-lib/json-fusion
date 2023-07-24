@@ -1,10 +1,9 @@
-import { defineConfig, Options } from 'tsup'
+import { defineConfig } from 'tsup'
 import config from './package.json'
 
-
-const commonOption = {
+export default defineConfig({
   name: config.name,
-  entryPoints: ['src/index.ts'],
+  entry: ['src/index.ts'],
   format: ['cjs', 'esm'],
   dts: true,
   treeshake: true,
@@ -13,16 +12,4 @@ const commonOption = {
   esbuildOptions(options, _context) {
     options.drop = [...(options.drop ?? []), 'console']
   }
-} satisfies Options
-
-export default defineConfig([
-  {
-    ...commonOption,
-    target: ['esnext'],
-  },
-  {
-    ...commonOption,
-    target: ['es2015'],
-    outDir: 'dist/es2015'
-  }
-])
+})
