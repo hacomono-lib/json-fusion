@@ -15,7 +15,7 @@
   "author": "mew-ton <mxl_usmarc@slmail.mewton.jp>",
   "license": "MIT",
   "engines": {
-    "node": ">=14"
+    "node": ">=v14.21.3"
   },
   "packageManager": "yarn@3.6.1",
   "type": "module",
