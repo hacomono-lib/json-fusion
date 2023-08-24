@@ -1,5 +1,11 @@
 # json-fusion
 
+## 0.2.2
+
+### Patch Changes
+
+- [#95](https://github.com/hacomono-lib/json-fusion/pull/95) [`4d6caad`](https://github.com/hacomono-lib/json-fusion/commit/4d6caadad87d680f04ad3afeb2e9f77ec6beb376) Thanks [@mew-ton](https://github.com/mew-ton)! - fix: 間違って npm から消してしまったので復活のため。
+
 ## 0.2.1
 
 ### Patch Changes
