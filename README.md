@@ -1,5 +1,11 @@
 # json-fusion
 
+![npm](https://img.shields.io/npm/v/json-fusion)
+![npm package minimized gzipped size (select exports)](https://img.shields.io/bundlejs/size/json-fusion)
+![GitHub](https://img.shields.io/github/license/hacomono-lib/json-fusion)
+[![Release](https://github.com/hacomono-lib/json-fusion/actions/workflows/release.yml/badge.svg)](https://github.com/hacomono-lib/json-fusion/actions/workflows/release.yml)
+[![Test](https://github.com/hacomono-lib/json-fusion/actions/workflows/test.yml/badge.svg)](https://github.com/hacomono-lib/json-fusion/actions/workflows/test.yml)
+
 `json-fusion` is a Node.js library designed to streamline the process of loading, merging, and reflecting directory hierarchies in JSON files. With `json-fusion`, you can consolidate information scattered across different JSON files, and reflect your filesystem's structure directly in your data, all with just a few lines of code.
 
 Moreover, `json-fusion` provides a special handling for `index.json` files. The contents of `index.json` files are expanded directly into the parent directory's key, rather than creating a separate index key. This allows more intuitive organization of your JSON files.
