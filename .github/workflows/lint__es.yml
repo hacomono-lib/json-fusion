@@ -1,6 +1,6 @@
 ---
-name: Lint Code Base
-run-name: "Lint code base on \"${{ github.event.pull_request.title }}\" by ${{ github.actor }}"
+name: Lint Code Base (eslint)
+run-name: "Lint code base (eslint) on \"${{ github.event.pull_request.title }}\" by ${{ github.actor }}"
 
 permissions:
   contents: read
@@ -12,21 +12,6 @@ on:
     types: [opened, synchronize]
 
 jobs:
-  actionlint:
-    if: ${{ github.actor != 'dependabot[bot]' && github.actor != 'renovate[bot]' }}
-    name: "Lint: GitHub Actions"
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: github actions lint
-        uses: reviewdog/action-actionlint@v1
-        with:
-          filter_mode: diff_context
-          fail_on_error: true
-          reporter: github-pr-review
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-
   eslint:
     name: "Lint: ESLint"
     if: |
