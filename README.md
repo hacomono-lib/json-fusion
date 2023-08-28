@@ -1,5 +1,8 @@
 # json-fusion
 
+![npm](https://img.shields.io/npm/v/json-fusion)
+![npm package minimized gzipped size (select exports)](https://img.shields.io/bundlejs/size/json-fusion)
+![GitHub](https://img.shields.io/github/license/hacomono-lib/json-fusion)
 [![Release](https://github.com/hacomono-lib/json-fusion/actions/workflows/release.yml/badge.svg)](https://github.com/hacomono-lib/json-fusion/actions/workflows/release.yml)
 [![Test](https://github.com/hacomono-lib/json-fusion/actions/workflows/test.yml/badge.svg)](https://github.com/hacomono-lib/json-fusion/actions/workflows/test.yml)
 
