@@ -17,7 +17,7 @@
   "engines": {
     "node": ">=14"
   },
-  "packageManager": "yarn@3.6.2",
+  "packageManager": "yarn@3.6.3",
   "type": "module",
   "files": [
     "dist"
