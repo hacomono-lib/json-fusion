@@ -1,5 +1,11 @@
 # json-fusion
 
+## 0.2.3
+
+### Patch Changes
+
+- [#104](https://github.com/hacomono-lib/json-fusion/pull/104) [`5812004`](https://github.com/hacomono-lib/json-fusion/commit/5812004b25c58dade33ecf3765cd295da4681a44) Thanks [@mew-ton](https://github.com/mew-ton)! - fix: Save time executing github actions.
+
 ## 0.2.2
 
 ### Patch Changes
