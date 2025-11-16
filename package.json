@@ -52,7 +52,7 @@
     "eslint-plugin-import": "^2.29.1",
     "prettier": "^3.0.3",
     "tsup": "^7.2.0",
-    "typescript": "^5.2.2",
+    "typescript": "^5.9.3",
     "vitest": "^0.34.6",
     "yaml": "^2.3.4",
     "yarn-run-all": "latest"
