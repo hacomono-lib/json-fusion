@@ -92,14 +92,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@changesets/changelog-github@npm:^0.4.8":
-  version: 0.4.8
-  resolution: "@changesets/changelog-github@npm:0.4.8"
+"@changesets/changelog-github@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "@changesets/changelog-github@npm:0.6.0"
   dependencies:
-    "@changesets/get-github-info": ^0.5.2
-    "@changesets/types": ^5.2.1
+    "@changesets/get-github-info": ^0.8.0
+    "@changesets/types": ^6.1.0
     dotenv: ^8.1.0
-  checksum: 8a357cc08757e0eeca267ee05141f68bef936582abef8b78a5d30d99f5a86e41b7d3debba70992b73b2f57b0fc6201ec1cc3c65116930167ee3197b427b865c5
+  checksum: ba9c99c02fd121692f7235277a5ee67d4392336dc8d3301e1d2ef3f18caea57f300e800ec883d440caaf78a04468164fc7eda9f0a12ce949faf3918115117a98
   languageName: node
   linkType: hard
 
@@ -183,13 +183,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@changesets/get-github-info@npm:^0.5.2":
-  version: 0.5.2
-  resolution: "@changesets/get-github-info@npm:0.5.2"
+"@changesets/get-github-info@npm:^0.8.0":
+  version: 0.8.0
+  resolution: "@changesets/get-github-info@npm:0.8.0"
   dependencies:
     dataloader: ^1.4.0
     node-fetch: ^2.5.0
-  checksum: 067e07eeaecdbedbd1c715513c4aa6206a941bd1d3af292d067792808c6fa6644caad2b35fba614a44892559c031c234df8028f8d2abd4cb2682d48080ef5df3
+  checksum: e3bf3a2e318f51b488447aea81ddddc11c3adcd96c01b3505df78a0781c2f148ed954d2809c53fc269688db06550b5facac7f4262e69a34b9acc717a593dac26
   languageName: node
   linkType: hard
 
@@ -289,6 +289,13 @@ __metadata:
   version: 5.2.1
   resolution: "@changesets/types@npm:5.2.1"
   checksum: 527dc1aa41b040fe35bcd55f7d07bec710320b179b000c429723e25b87aac18be487daf5047d4fecf2781aad78f73abff111e76e411b652f7a2e812a464c69f2
+  languageName: node
+  linkType: hard
+
+"@changesets/types@npm:^6.1.0":
+  version: 6.1.0
+  resolution: "@changesets/types@npm:6.1.0"
+  checksum: 2d01231ddb835b48f9c7963a92ffee7ff347be407cdd52b2a9dcfd2a6e75f2ba13d3009d954a8bca4b622d4cac369f86b496ee9c55f5b788e295ca2d3cba4b94
   languageName: node
   linkType: hard
 
@@ -3369,7 +3376,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "json-fusion@workspace:."
   dependencies:
-    "@changesets/changelog-github": ^0.4.8
+    "@changesets/changelog-github": ^0.6.0
     "@changesets/cli": ^2.26.2
     "@typescript-eslint/eslint-plugin": ^6.9.1
     "@typescript-eslint/parser": ^6.9.1
