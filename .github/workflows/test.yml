@@ -28,11 +28,17 @@ jobs:
       !contains(github.event.pull_request.labels.*.name, 'renovate')
     name: "Initialize: node"
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
+      pull-requests: write
+      id-token: write
     strategy:
       matrix:
         node-version: [14.x, 16.x, 18.x]
     steps:
       - uses: actions/checkout@v6
+      - uses: ./.github/actions/takumi-guard-setup
       - uses: ./.github/actions/init-node
         with:
           node-version: ${{ matrix.node-version }}
@@ -40,10 +46,16 @@ jobs:
   build:
     name: "Build"
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
+      pull-requests: write
+      id-token: write
     needs:
       - init__node
     steps:
       - uses: actions/checkout@v6
+      - uses: ./.github/actions/takumi-guard-setup
       - uses: ./.github/actions/init-node
         with:
           node-version: 18.x
@@ -53,6 +65,11 @@ jobs:
   test:
     name: "Test: spec"
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
+      pull-requests: write
+      id-token: write
     strategy:
       matrix:
         node-version: [14.x, 16.x, 18.x]
@@ -60,6 +77,7 @@ jobs:
       - build
     steps:
       - uses: actions/checkout@v6
+      - uses: ./.github/actions/takumi-guard-setup
       - uses: ./.github/actions/init-node
         with:
           node-version: ${{ matrix.node-version }}
@@ -71,10 +89,16 @@ jobs:
   typecheck:
     name: "Test: typecheck"
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
+      pull-requests: write
+      id-token: write
     needs:
       - init__node
     steps:
       - uses: actions/checkout@v6
+      - uses: ./.github/actions/takumi-guard-setup
       - uses: ./.github/actions/init-node
         with:
           node-version: 18.x
